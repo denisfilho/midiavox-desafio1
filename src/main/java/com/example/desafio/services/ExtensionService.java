@@ -85,4 +85,20 @@ public class ExtensionService {
 
         return "Success: Login Registrado no Ramal com Sucesso!";
     }
+
+    // Desloga o ramal, removendo o usuário associado
+    public String logoutExtension(String extensionNumber) {
+        // Verifica se o ramal existe
+        Extension findedExtensionByExtensionNumber = extensionRepository.findByExtensionNumber(extensionNumber).orElse(null);
+        logger.info("Verificando se o ramal existe");
+        if (findedExtensionByExtensionNumber == null) {
+            return "Fail: Ramal não encontrado";
+        }
+
+        findedExtensionByExtensionNumber.setLoggedUser(null);
+        extensionRepository.save(findedExtensionByExtensionNumber);
+        logger.info("Success: Ramal Deslogado com Sucesso!");
+
+        return "Success: Ramal Deslogado com Sucesso!";
+    }
 }

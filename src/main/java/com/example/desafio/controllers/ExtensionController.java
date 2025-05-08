@@ -54,4 +54,9 @@ public class ExtensionController {
         logger.info("chamando método para ligar o ramal ao usuário");
         return ResponseEntity.ok(extensionService.loginExtension(extensionSaveInputDTO));
     }
+
+    @DeleteMapping("/logout/{extensionNumber}")
+    public ResponseEntity<String> logoutExtension(@PathVariable String extensionNumber) {
+        return ResponseEntity.ok(extensionService.logoutExtension(extensionNumber));
+    }
 }
