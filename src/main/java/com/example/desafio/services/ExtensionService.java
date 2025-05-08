@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,17 +20,6 @@ public class ExtensionService {
     private ExtensionRepository extensionRepository;
 
     Logger logger = LoggerFactory.getLogger(ExtensionService.class);
-
-    public List<Extension> getAvailableExtensios() {
-
-        List<Extension> availableExtensions = extensionRepository.findByLoggedUserIsNull();
-
-        if (availableExtensions.isEmpty()) {
-            return availableExtensions;
-        }
-
-        return extensionRepository.findByLoggedUserIsNull();
-    }
 
     public Page<ExtensionDisplayedDTO> getAvailableExtensios(Pageable pageable) {
 
@@ -43,5 +33,25 @@ public class ExtensionService {
         logger.info(extensionsDTO.toString());
 
         return extensionsDTO;
+    }
+
+    public List<String> configureRange(int start, int end) {
+        List<String> existingExtensions = new ArrayList<>();
+
+        for (int i = start; i <= end; i++) {
+            String extensionNumber = String.valueOf(i);
+            Extension findedExtension = extensionRepository.findByExtensionNumber(extensionNumber).orElse(null);
+
+            if (findedExtension != null) {
+                existingExtensions.add(extensionNumber);
+            } else {
+                Extension newExt = new Extension();
+                newExt.setExtensionNumber(extensionNumber);
+                newExt.setLoggedUser(null);
+                extensionRepository.save(newExt);
+            }
+        }
+
+        return existingExtensions; // Retorna apenas os que já existiam
     }
 }

@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/extensions")
@@ -33,5 +33,18 @@ public class ExtensionController {
             return ResponseEntity.noContent().build(); // status 204
         }
         return ResponseEntity.ok(extensionService.getAvailableExtensios(pageable));
+    }
+
+    @PostMapping("/range")
+    public ResponseEntity<?> configureRange(@RequestParam int start, @RequestParam int end) {
+
+        logger.info("chamando método para criar os ramais com base no range");
+        List<String> alreadyCreated = extensionService.configureRange(start, end);
+
+        if (alreadyCreated.isEmpty()) {
+            return ResponseEntity.ok("Range configurado com sucesso");
+        } else {
+            return ResponseEntity.ok("Ramais que já haviam sido criados: " + alreadyCreated);
+        }
     }
 }

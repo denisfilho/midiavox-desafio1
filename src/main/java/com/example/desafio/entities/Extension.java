@@ -34,4 +34,12 @@ public class Extension {
     public String getLoggedUser() {
         return loggedUser;
     }
+
+    public void setExtensionNumber(String extensionNumber) {
+        this.extensionNumber = extensionNumber;
+    }
+
+    public void setLoggedUser(String loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 }
