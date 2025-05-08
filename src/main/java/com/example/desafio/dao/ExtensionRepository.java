@@ -14,4 +14,6 @@ public interface ExtensionRepository extends JpaRepository<Extension, Long> {
     Page<Extension> findByLoggedUserIsNull(Pageable pageable);
 
     Optional<Extension> findByExtensionNumber(String extensionNumber);
+
+    Optional<Extension> findByLoggedUser(String usuario);
 }

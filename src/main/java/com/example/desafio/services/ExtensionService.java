@@ -2,6 +2,7 @@ package com.example.desafio.services;
 
 import com.example.desafio.dao.ExtensionRepository;
 import com.example.desafio.dtos.ExtensionDisplayedDTO;
+import com.example.desafio.dtos.ExtensionSaveInputDTO;
 import com.example.desafio.entities.Extension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,5 +54,35 @@ public class ExtensionService {
         }
 
         return existingExtensions; // Retorna apenas os que já existiam
+    }
+
+    // Realiza o login de um usuário em um ramal
+    public String loginExtension(ExtensionSaveInputDTO extensionSaveInputDTO) {
+        // Verifica se o usuário já está logado em algum ramal
+        Extension findedExtensionByUser = extensionRepository.findByLoggedUser(extensionSaveInputDTO.getLoggedUser()).orElse(null);
+        logger.info("Verificando se o usuário já está logado em algum ramal");
+        if (findedExtensionByUser!= null) {
+            return "Fail: Usuário já está logado no ramal: " + findedExtensionByUser.getExtensionNumber();
+        }
+
+        // Verifica se o ramal existe
+        Extension findedExtensionByExtensionNumber = extensionRepository.findByExtensionNumber(extensionSaveInputDTO.getExtensionNumber()).orElse(null);
+        logger.info("Verificando se o ramal existe");
+        if (findedExtensionByExtensionNumber == null) {
+            return "Fail: Ramal não encontrado";
+        }
+
+        // Verifica se o ramal já está em uso por outro usuário
+        logger.info("Verificando se o ramal já está em uso por outro usuário");
+        if (findedExtensionByExtensionNumber.getLoggedUser() != null) {
+            return "Fail: Ramal já está em uso pelo usuário: " + findedExtensionByExtensionNumber.getLoggedUser();
+        }
+
+        // Realiza o login
+        logger.info("Sucess: Registrando Usuário no Ramal");
+        findedExtensionByExtensionNumber.setLoggedUser(extensionSaveInputDTO.getLoggedUser());
+        extensionRepository.save(findedExtensionByExtensionNumber);
+
+        return "Success: Login Registrado no Ramal com Sucesso!";
     }
 }

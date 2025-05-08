@@ -2,6 +2,7 @@ package com.example.desafio.controllers;
 
 
 import com.example.desafio.dtos.ExtensionDisplayedDTO;
+import com.example.desafio.dtos.ExtensionSaveInputDTO;
 import com.example.desafio.services.ExtensionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,5 +47,11 @@ public class ExtensionController {
         } else {
             return ResponseEntity.ok("Ramais que já haviam sido criados: " + alreadyCreated);
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginExtension(@RequestBody ExtensionSaveInputDTO extensionSaveInputDTO) {
+        logger.info("chamando método para ligar o ramal ao usuário");
+        return ResponseEntity.ok(extensionService.loginExtension(extensionSaveInputDTO));
     }
 }

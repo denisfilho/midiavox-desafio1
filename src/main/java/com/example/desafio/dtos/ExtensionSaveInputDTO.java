@@ -9,25 +9,25 @@ import lombok.NoArgsConstructor;
 public class ExtensionSaveInputDTO {
 
     @NotEmpty
-    private String usuario;
+    private String extensionNumber;
 
     @NotEmpty
-    private String extension;
+    private String loggedUser;
 
-    public String getExtension() {
-        return extension;
+    public String getExtensionNumber() {
+        return extensionNumber;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getLoggedUser() {
+        return loggedUser;
     }
 
-    public void setExtension(String extension){
-        this.extension= extension;
+    public void setExtensionNumber(String extensionNumber){
+        this.extensionNumber= extensionNumber;
     }
 
-    public void setUsuario(String usuario){
-        this.usuario= usuario;
+    public void setLoggedUser(String loggedUser){
+        this.loggedUser= loggedUser;
     }
 }
 
