@@ -17,7 +17,7 @@ Gerenciamento de login em ramais
 git clone https://github.com/denisfilho/midiavox-desafio1.git
 ```
 
-### 2. Clone o repositório
+### 2. Script SQL para criação das tabelas
 ```bash
 CREATE TABLE extensions (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
