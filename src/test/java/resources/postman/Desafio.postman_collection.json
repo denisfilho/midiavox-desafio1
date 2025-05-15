@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "dcb4cd7c-12eb-43ea-b82e-2af0963c088c",
+		"name": "Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17898284"
+	},
+	"item": [
+		{
+			"name": "getAvailableExtensions",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "createArrayExtensions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "/extensions/range?start=1&end=3",
+					"path": [
+						"extensions",
+						"range"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "1"
+						},
+						{
+							"key": "end",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login - Fail: Usuário já está logado num ramal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"extensionNumber\": \"1\",\r\n    \"loggedUser\": \"cesar\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/extensions/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login - Fail:Ramal em uso por outro usuário",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/extensions/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login - Fail: Ramal não encontrado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/extensions/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login - Success",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/extensions/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout - Sucess",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/extensions/logout/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"logout",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout - Fail: Ramal não encontrado",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/extensions/logout/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"extensions",
+						"logout",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
